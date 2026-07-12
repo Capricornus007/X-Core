@@ -17,6 +17,8 @@
 
 package me.vkryl.core;
 
+import me.vkryl.core.lambda.RunnableInt;
+
 public final class BitwiseUtils {
   private BitwiseUtils () { }
 
@@ -131,6 +133,14 @@ public final class BitwiseUtils {
       // 7:00-22:00
       // return isAfter(hour, minute, second, startHour, startMinute, startSecond) && isAfter(endHour, endMinute, endSecond, hour, minute, second);
       return isAfter(time, startTime) && isAfter(endTime, time);
+    }
+  }
+
+  public static void iterateFlags (int flags, RunnableInt callback) {
+    while (flags != 0) {
+      int flag = flags & -flags;
+      callback.runWithInt(flag);
+      flags &= flags - 1;
     }
   }
 }
