@@ -133,4 +133,25 @@ public final class BitwiseUtils {
       return isAfter(time, startTime) && isAfter(endTime, time);
     }
   }
+  public static void iterateFlags (int flags, me.vkryl.core.lambda.RunnableInt consumer) {
+    int mask = 1;
+    while (flags != 0) {
+      if ((flags & 1) != 0) {
+        consumer.runWithInt(mask);
+      }
+      flags >>>= 1;
+      mask <<= 1;
+    }
+  }
+
+  public static void iterateFlags (long flags, me.vkryl.core.lambda.RunnableLong consumer) {
+    long mask = 1L;
+    while (flags != 0) {
+      if ((flags & 1) != 0) {
+        consumer.runWithLong(mask);
+      }
+      flags >>>= 1;
+      mask <<= 1;
+    }
+  }
 }
